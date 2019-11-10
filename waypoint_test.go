@@ -56,18 +56,18 @@ var testDistance = []struct {
 }
 
 func TestGPX(t *testing.T) {
-	gpx, err := NewFromGPX(strings.NewReader(testGPX))
+	gpx, err := New(strings.NewReader(testGPX))
 	if err != nil {
 		t.Error(err)
 	}
 
 	t.Run("Nearest", func(t *testing.T) {
 		var name string
-		name, _ = gpx.Nearest(46.70996411, 7.77341942)
+		name, _ = gpx.Closest(46.70996411, 7.77341942)
 		if name != "Niederhorn 1" {
 			t.Errorf("should be \"Niederhorn 1\" - got %s\n", name)
 		}
-		name, _ = gpx.Nearest(46.6810178, 7.82421503)
+		name, _ = gpx.Closest(46.6810178, 7.82421503)
 		if name != "Unterseen Lehn" {
 			t.Errorf("should be \"Unterseen Lehn\" - got %s\n", name)
 		}
@@ -81,7 +81,7 @@ func TestGPX(t *testing.T) {
 		for _, p := range testDistance[1:] {
 			d := int(g.Distance(p.latitude, p.longitude) + 0.5)
 			if d != p.distance {
-				t.Errorf("distance between %f/%f should be %f not %f", p.latitude, p.longitude, p.distance, d)
+				t.Errorf("distance between %f/%f should be %d not %d", p.latitude, p.longitude, p.distance, d)
 			}
 		}
 	})
