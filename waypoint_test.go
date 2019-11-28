@@ -61,7 +61,7 @@ func TestGPX(t *testing.T) {
 		t.Error(err)
 	}
 
-	t.Run("Nearest", func(t *testing.T) {
+	t.Run("Closest", func(t *testing.T) {
 		var name string
 		name, _ = gpx.Closest(46.70996411, 7.77341942)
 		if name != "Niederhorn 1" {
